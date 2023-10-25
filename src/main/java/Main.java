@@ -7,15 +7,20 @@ public class Main {
 
         int howManyPeople;
         while (true) {
-
-            System.out.println("На сколько человек необходимо разделить счет?");
-            howManyPeople = scanner.nextInt();
-            if (howManyPeople <= 1) {
-                System.out.println("Ошибка: Количество людей должно быть больше 1.");
-            } else {
-                break;
+            try {
+                System.out.println("На сколько человек необходимо разделить счет?");
+                howManyPeople = scanner.nextInt();
+                if (howManyPeople <= 1) {
+                    System.out.println("Ошибка: Количество людей должно быть больше 1");
+                } else {
+                    break;
+                }
+            } catch (java.util.InputMismatchException e) {
+                System.out.println("Ошибка: Введите целое число");
+                scanner.nextLine();
             }
         }
+
         Calculator calculator = new Calculator(howManyPeople);
 
         while (true) {
@@ -27,10 +32,19 @@ public class Main {
             }
 
                 System.out.print("Введите стоимость товара (в формате рубли,копейки): ");
-                double price = scanner.nextDouble();
+            double price;
+            try {
+                price = scanner.nextDouble();
 
-
-            calculator.addProduct(input, price);
+                if (price <= 0) {
+                    System.out.println("Ошибка: Стоимость товара не может быть отрицательной или 0");
+                } else {
+                    calculator.addProduct(input, price);
+                }
+            } catch (java.util.InputMismatchException e) {
+                System.out.println("Ошибка: Неверный формат данных");
+                scanner.nextLine();
+            }
         }
         calculator.printSummary();
     }

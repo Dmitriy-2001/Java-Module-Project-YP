@@ -1,9 +1,9 @@
 import java.util.ArrayList;
 
 public class Calculator {
-    private Formatter formatter = new Formatter();
-    private int howManyPeople;
-    private ArrayList<Product> products; // создал массив
+    //  private Formatter formatter = new Formatter();
+    private final int howManyPeople;
+    private final ArrayList<Product> products; // создал массив
 
 
     public Calculator(int howManyPeople) {
@@ -14,7 +14,7 @@ public class Calculator {
     public void addProduct(String name, double price) {
         Product product = new Product(name, price);
         products.add(product);
-        System.out.println("Товар '" + name + "' успешно добавлен.");
+        System.out.println("Товар '" + name + "' успешно добавлен");
     }
 
 
@@ -36,10 +36,12 @@ public class Calculator {
         double totalPrice = calculateTotalPrice();
         double pricePerPerson = totalPrice / howManyPeople;
 
-        String formattedTotalPrice = formatter.rubles(totalPrice);
-        String formattedPricePerPerson = formatter.rubles(pricePerPerson);
-        System.out.println("Общая сумма: " + String.format("%.2f", totalPrice) + formattedTotalPrice);
-        System.out.println("Сумма для каждого человека: " + String.format("%.2f", totalPrice / howManyPeople) + formattedPricePerPerson);
+        String formattedTotalPrice = Formatter.rubles(totalPrice);
+        String formattedPricePerPerson = Formatter.rubles(pricePerPerson);
+
+        System.out.println(String.format("Общая сумма: %.2f %s", totalPrice, formattedTotalPrice));
+        System.out.println(String.format("Сумма для каждого человека: %.2f %s", pricePerPerson, formattedPricePerPerson));
+
 
     }
 }
